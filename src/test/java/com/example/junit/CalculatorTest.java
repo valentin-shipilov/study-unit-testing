@@ -8,13 +8,13 @@ class CalculatorTest {
     private final Calculator testee = new Calculator();
 
     @Test
-    public void given_two_numbers_when_add_then_should_get_sum() {
+    void given_two_numbers_when_add_then_should_get_sum() {
         // given
-        int first = 2;
-        int second = 3;
+        int givenFirst = 2;
+        int givenSecond = 3;
 
         // when
-        int actualResult = testee.add(first, second);
+        int actualResult = testee.add(givenFirst, givenSecond);
 
         // then
         int expectedResult = 5;
@@ -22,13 +22,13 @@ class CalculatorTest {
     }
 
     @Test
-    public void given_two_numbers_when_mul_then_should_get_product() {
+    void given_two_numbers_when_mul_then_should_get_product() {
         // given
-        int first = 2;
-        int second = 3;
+        int givenFirst = 2;
+        int givenSecond = 3;
 
         // when
-        int actualResult = testee.mul(first, second);
+        int actualResult = testee.mul(givenFirst, givenSecond);
 
         // then
         int expectedResult = 6;

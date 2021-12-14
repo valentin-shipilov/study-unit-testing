@@ -1,7 +1,7 @@
 package com.example.junit;
 
 public class PaymentCalculator {
-    private static final long SILVER_LIMIT = 5L;
+    private static final long SILVER_LIMIT = 4L;
     private static final long GOLDEN_LIMIT = 3L;
 
     private final long costForMinute;

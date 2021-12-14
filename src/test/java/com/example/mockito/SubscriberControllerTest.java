@@ -70,7 +70,75 @@ class SubscriberControllerTest {
         assertEquals(givenView, actualView, "view");
     }
 
-    // Задание: добавить остальные тесты для метода  searchForSubscriber
+    @Test
+    void given_phone_number_of_inactive_subscriber_then_should_render_view_for_him() {
+        // given
+        given(mockedSubscriberRepository.searchForLastInactiveSubscriberWithNumber(anyString()))
+                .willReturn(Optional.empty());
+        given(mockedSubscriberRepository.searchForLastInactiveSubscriberWithNumber(anyString()))
+                .willReturn(Optional.of(givenInactiveSubscriber));
+
+        // when
+        runCatching(() -> testee.searchForSubscriber(givenPhoneNumber));
+
+        // then
+        then(mockedSubscriberViewBuilder).should(only()).renderViewForInactiveSubscriber(
+                givenInactiveSubscriber,
+                givenPhoneNumber);
+    }
+
+    @Test
+    void given_phone_number_of_inactive_subscriber_then_should_return_rendered_view() {
+        // given
+        String givenView = "I'm sorry, but your account is closed";
+        given(mockedSubscriberRepository.searchForActiveSubscriberWithNumber(anyString()))
+                .willReturn(Optional.empty());
+        given(mockedSubscriberRepository.searchForLastInactiveSubscriberWithNumber(anyString()))
+                .willReturn(Optional.of(givenInactiveSubscriber));
+        given(mockedSubscriberViewBuilder.renderViewForInactiveSubscriber(anyString(), anyString()))
+                .willReturn(givenView);
+
+        // when
+        String actualView = testee.searchForSubscriber(givenPhoneNumber);
+
+        // then
+        assertEquals(givenView, actualView, "view");
+    }
+
+    @Test
+    void given_invalid_phone_number_then_should_render_view_for_invalid_phone() {
+        // given
+        given(mockedSubscriberRepository.searchForActiveSubscriberWithNumber(anyString()))
+                .willReturn(Optional.empty());
+        given(mockedSubscriberRepository.searchForLastInactiveSubscriberWithNumber(anyString()))
+                .willReturn(Optional.empty());
+
+        // when
+        runCatching(() -> testee.searchForSubscriber(givenPhoneNumber));
+
+
+        // then
+        then(mockedSubscriberViewBuilder).should(only()).renderViewForInvalidPhoneNumber(
+                givenPhoneNumber);
+    }
+
+    @Test
+    void given_invalid_phone_number_then_should_return_rendered_view() {
+        // given
+        String givenView = "I'm sorry, Peter Black, but your account is closed";
+        given(mockedSubscriberRepository.searchForActiveSubscriberWithNumber(anyString()))
+                .willReturn(Optional.empty());
+        given(mockedSubscriberRepository.searchForLastInactiveSubscriberWithNumber(anyString()))
+                .willReturn(Optional.empty());
+        given(mockedSubscriberViewBuilder.renderViewForInvalidPhoneNumber(anyString()))
+                .willReturn(givenView);
+
+        // when
+        String actualView = testee.searchForSubscriber(givenPhoneNumber);
+
+        // then
+        assertEquals(givenView, actualView, "view");
+    }
 
     private void runCatching(Executable executable) {
         try {

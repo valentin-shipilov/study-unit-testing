@@ -27,8 +27,7 @@ class SubscriberControllerTest {
 
     private final String givenActiveSubscriber = "John Doe";
 
-    private final String givenViewForActiveSubscriber = "Hello, John Doe";
-
+    private final String givenInactiveSubscriber = "Peter Black";
 
     @Test
     void should_search_for_active_subscriber_at_first() {
@@ -40,7 +39,7 @@ class SubscriberControllerTest {
     }
 
     @Test
-    void given_active_subscriber_exists_then_should_render_view_for_him() {
+    void given_phone_number_of_active_subscriber_then_should_render_view_for_him() {
         // given
         given(mockedSubscriberRepository.searchForActiveSubscriberWithNumber(anyString()))
                 .willReturn(Optional.of(givenActiveSubscriber));
@@ -49,24 +48,25 @@ class SubscriberControllerTest {
         runCatching(()  -> testee.searchForSubscriber(givenPhoneNumber));
 
         // then
-        then(mockedSubscriberViewBuilder).should().renderViewForActiveSubscriber(
+        then(mockedSubscriberViewBuilder).should(only()).renderViewForActiveSubscriber(
                 givenActiveSubscriber,
                 givenPhoneNumber);
     }
 
     @Test
-    void given_active_subscriber_exists_then_should_return_rendered_view() {
+    void given_phone_number_of_active_subscriber_then_should_return_rendered_view() {
         // given
+        String givenView = "Hello, John Doe";
         given(mockedSubscriberRepository.searchForActiveSubscriberWithNumber(anyString()))
                 .willReturn(Optional.of(givenActiveSubscriber));
         given(mockedSubscriberViewBuilder.renderViewForActiveSubscriber(anyString(), anyString()))
-                .willReturn(givenViewForActiveSubscriber);
+                .willReturn(givenView);
 
         // when
         String actualView = testee.searchForSubscriber(givenPhoneNumber);
 
         // then
-        assertEquals(givenViewForActiveSubscriber, actualView, "view");
+        assertEquals(givenView, actualView, "view");
     }
 
     // Задание: добавить остальные тесты для метода  searchForSubscriber

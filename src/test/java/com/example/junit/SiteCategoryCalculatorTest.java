@@ -30,7 +30,7 @@ class SiteCategoryCalculatorTest {
             "51, CULTURE",
             "65, CULTURE"
     })
-    public void given_valid_age_the_should_calculate_appropriate_site_category(
+    void given_valid_age_the_should_calculate_appropriate_site_category(
             int givenAge,
             SiteCategory expectedSiteCategory
     ){
@@ -47,7 +47,7 @@ class SiteCategoryCalculatorTest {
             -5,
             -50
     })
-    public void given_negative_age_the_should_get_error(
+    void given_negative_age_the_should_get_error(
             int givenAge
     ){
         // when/then

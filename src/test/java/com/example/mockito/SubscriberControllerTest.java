@@ -31,7 +31,7 @@ class SubscriberControllerTest {
 
 
     @Test
-    public void should_search_for_active_subscriber_at_first() {
+    void should_search_for_active_subscriber_at_first() {
         // when
         runCatching(()  -> testee.searchForSubscriber(givenPhoneNumber));
 
@@ -40,7 +40,7 @@ class SubscriberControllerTest {
     }
 
     @Test
-    public void given_active_subscriber_exists_then_should_render_view_for_him() {
+    void given_active_subscriber_exists_then_should_render_view_for_him() {
         // given
         given(mockedSubscriberRepository.searchForActiveSubscriberWithNumber(anyString()))
                 .willReturn(Optional.of(givenActiveSubscriber));
@@ -55,7 +55,7 @@ class SubscriberControllerTest {
     }
 
     @Test
-    public void given_active_subscriber_exists_then_should_return_rendered_view() {
+    void given_active_subscriber_exists_then_should_return_rendered_view() {
         // given
         given(mockedSubscriberRepository.searchForActiveSubscriberWithNumber(anyString()))
                 .willReturn(Optional.of(givenActiveSubscriber));

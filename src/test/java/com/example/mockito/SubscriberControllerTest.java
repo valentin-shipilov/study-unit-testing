@@ -36,7 +36,7 @@ class SubscriberControllerTest {
         runCatching(()  -> testee.searchForSubscriber(givenPhoneNumber));
 
         // then
-        then(mockedSubscriberRepository).should(only()).searchForActiveSubscriberWithNumber(givenPhoneNumber);
+        then(mockedSubscriberRepository).should().searchForActiveSubscriberWithNumber(givenPhoneNumber);
     }
 
     @Test
